@@ -1,0 +1,255 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\usepackage{graphicx}
+\usepackage{tikz} 
+\usetikzlibrary{shapes,snakes}
+
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{makecell}
+\newcolumntype{x}[1]{>{\centering\arraybackslash}p{#1}}
+
+\usepackage{tikz}
+\newcommand\diag[4]{%
+  \multicolumn{1}{p{#2}|}{\hskip-\tabcolsep
+  $\vcenter{\begin{tikzpicture}[baseline=0,anchor=south west,inner sep=#1]
+  \path[use as bounding box] (0,0) rectangle (#2+2\tabcolsep,\baselineskip);
+  \node[minimum width={#2+2\tabcolsep},minimum height=\baselineskip+\extrarowheight] (box) {};
+  \draw (box.north west) -- (box.south east);
+  \node[anchor=south west] at (box.south west) {#3};
+  \node[anchor=north east] at (box.north east) {#4};
+ \end{tikzpicture}}$\hskip-\tabcolsep}}
+ 
+ \usepackage{diagbox}
+
+\usepackage[a4paper, total={7in, 9in}]{geometry}
+\newcommand\Inn{%
+  \mathrel{\ooalign{$\subset$\cr\hfil\scalebox{0.8}[1]{$=$}\hfil\cr}}%
+}
+\title{Final written examination}
+\author{Parth Kalkar}
+\date{March 14, 2022}
+
+\begin{document}
+
+\maketitle
+Birth date: \textbf{03.02.2000} 
+
+\section{Task 1}
+\subsection{Task Description}
+Consider a game of two players (Alice and Bob) with the following payoff matrix 
+$
+\begin{bmatrix}
+3 & 2 & 20 & 0\\
+24 & 4 & 19 & 61
+\end{bmatrix}
+$. Rows of the matrix
+corresponds to strategies $A_1$ and $A_2$ of Alice and columns 
+of the matrix corresponds 
+to strategies $B_1$, $B_2$, $B_3$, $B_4$ of Bob.
+
+Firstly, characterize the game using terms and concepts introduced in the lecture notes. Then
+solve the game in mixed strategies.
+\subsection{Game Characterization}
+The game is a 2-players game in the normal form.
+As each cell in the payoff matrix contains only one value, which means it's equivalent to the following matrix $
+\begin{bmatrix}
+3:-3 & 2:-2 & 20:-20 & 0:-0\\
+24:-24 & 4:-4 & 19:-19 & 61:-61
+\end{bmatrix}
+$ it represents a zero-sum game. \\
+
+A mixed strategy of the player X is a probability distribution on the set of
+its pure strategies $\{X_1, X_2, .., X_n\}$.[1, pg-4]
+
+Let $G$ be the game in the normal form (of Alice $A$ and Bob $B$), $X$ be a player $\in \{A, B\}$, and $\{X_1, X_2, .., X_n\}$ be the set of the player $X$ pure
+strategies in the game $G$. 
+Any mixed strategy of the player $X$ can be represented as a vector (a
+row for certainty) $(x_1, ..., x_n)$ , where $1 = \Sigma_{1 \leq i \leq n} x_i$ and all $0 \leq x_1 \leq 1, ..., 0 \leq x_n \leq 1$ are probabilities that $X$ plays strategies $X_1, ..., X_n$. Let the corresponding payoff matrix as $[G_{ij}]$. Alice has two(the number of rows) strategies $A_1, A_2$ and Bob has four(the number of columns) strategies $B_1$, $B_2$, $B_3$, $B_4$.
+$$
+[G_{ij}] = 
+\begin{bmatrix}
+3 & 2 & 20 & 0\\
+24 & 4 & 19 & 61
+\end{bmatrix}
+$$
+The value in the i-th row and j-th column express the payoff for Alice if Alice chooses the i-th strategy and Bob
+chooses the j-th strategy. The negative of that value is the payoff for Bob if Alice chooses the i-th strategy and Bob
+chooses the j-th strategy.
+
+
+
+\subsection{Solving in Mixed Strategies}
+ 
+Using \textit{mixed domination}[1, pg-55] to solve the given game in mixed strategies. In any zero-sum game of two players with a matrix of $m * n$ order. If a row/column is (strictly) dominated in mixed strategies, then this row/column is non-active. Implying, strictly dominated columns or rows can be omitted and the equilibria would not be affected.[1, pg-56]
+
+\textbf{Note:} All the eliminations done below were using the knowledge from [1, pg-56] \\
+
+
+For Bob, the first column $\begin{bmatrix} 3 \\ 24 \end{bmatrix}$ is dominated by the second column $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$. Therefore, the strategy $B_1$ corresponding to the first column is non-active in 
+the Bob's equilibrium mixed strategy. Therefore $b^*_1=0$.\\
+$$
+[G'_{ij}] = 
+\begin{bmatrix}
+2 & 20 & 0\\
+4 & 19 & 61
+\end{bmatrix}
+$$
+
+Correspondingly, in $G'$, for Bob, the second column $\begin{bmatrix} 20 \\ 19 \end{bmatrix}$ is dominated by the first column $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$. therefore, the strategy $B'_2$ corresponding to the second column is non-active in the Bob's equilibrium mixed strategy. Therefore $b'^*_2=0$.\\
+$$
+[G''_{ij}] = 
+\begin{bmatrix}
+2 & 1\\
+4 & 61
+\end{bmatrix}
+$$
+
+For Alice, the first row $\begin{bmatrix} 2 & 1 \end{bmatrix}$ is dominated by the second row $\begin{bmatrix} 4 & 61 \end{bmatrix}$. Therefore, the strategy $A_1$ corresponding to the first row is non-active in the Alice's equilibrium mixed strategy. Therefore $a''^*_1=0$.\\
+$$
+[G^3_{ij}] = 
+\begin{bmatrix}
+4 & 61
+\end{bmatrix}
+$$
+
+In the resultant payoff matrix $G^3_{ij}$, Bob's second column $\begin{bmatrix} 61 \end{bmatrix}$ is dominated by the first column $\begin{bmatrix} 4 \end{bmatrix}$. 
+Therefore, the strategy $B^{(3)}_2$ corresponding to the second column is non-active in the Bob's equilibrium mixed strategy. Therefore $b^{(3)}^*_2=0$.
+
+$$
+[G^{final}_{ij}] = 
+\begin{bmatrix}
+4 
+\end{bmatrix}
+$$
+The resultant Nash equilibrium for the game $G$ in mixed strategies is $G_{22} = (A2, B2)$  with the value of the game equal to \textbf{4}.
+
+The solution to the game is:
+$$
+S^* = ((0, 1),(0, 1, 0, 0))
+$$
+\section{Task 2}
+\subsection{Task Description}
+Consider a game of two players (Alice and Bob) with the following payoff matrix $
+\begin{bmatrix}
+3:24 & 2:4 \\
+20:19 & 0:61
+\end{bmatrix}
+$. Rows of the matrix corresponds to strategies $A_1$ and $A_2$ of Alice and columns of the matrix corresponds to strategies $B_1$ and $B_2$ of Bob. 
+
+Firstly, characterize the game using terms and concepts introduced in the lecture notes. Then
+solve the game in mixed strategies.
+\subsection{Game Characterization}
+This game is $2$-player game in the normal form between Alice and Bob. Rows $A_1$ and $A_2$ represent  Alice's strategies, whereas columns $B_1$ and $B_2$ represent Bob's strategies. Matrix cells represent the payoffs when Alice and Bob play the strategies corresponding to the row and column of the cell respectively. Payoffs are denoted as $x : y$ where $x$ is Alice’s payoff and $y$ is Bob’s payoff.
+This game is not a zero-sum game since individual payoffs do not sum to zero for each
+play.
+
+\subsection{Solving in Pure Strategies}
+\textbf{Note:} This section is not strictly necessary 
+but it may contain information that aids 
+in the game's solution in mixed strategies. \\
+
+From lecture's knowledge, A play $S$ is called acceptable for a player $X$ if $\pi_X(S) \geq \pi_{X:s'_X}(S)$. A Nash equilibria is any play that is acceptable for all players. Alice's acceptable plays are $(A_1, B_2), (A_2, B_1), (A_2, B_2)$ while Bob's acceptable plays are $(A_1, B_1), (A_2, B_2)$.
+
+\textbf{Hint:} To solve in Pure Strategies, find all of the game's Nash Equilibria.
+
+
+
+Looking at the Acceptable Strategies for both players, we can see that $S^* = (A_2, B_2)$ is the only Nash Equilibrium in Pure Strategies. 
+Therefore, \textbf{the answer is:}
+$$
+S^* = ((p, (1 - p)), (q, (1 - q))) = ((0, 1), (0, 1))
+$$
+\subsection{Solving in Mixed Strategies}
+Spectrum (or support) of a mixed strategy is the set of all pure strategies that have a positive probability in the
+strategy. We'll test all of the Spectrum's possibilities because it is not clear. [3, pg-74] \\
+
+Considering the following cases to solve in mixed strategies:
+\begin{enumerate}
+    \item Both playing pure strategies 
+    $(p, 1 - p) \in \{(0, 1), (1, 0)\}$ and $(q, 1 - q) \in \{(0, 1), (1, 0)\}$. This case was already discussed in the section above.
+    \item Both playing purely mixed strategies $((p, (1 - p)), (q, (1 - q)))$ where $p, q \in (0, 1)$
+    \item Bob is playing a purely mixed strategy $q \in (0, 1)$, but Alice is playing a pure strategy $(p, 1 - p) \in \{(0, 1), (1, 0)\}$.
+    
+    \item Alice is playing a purely mixed strategy $p \in (0, 1)$, but Bob is playing a pure strategy $(q, 1 - q) \in \{(0, 1), (1, 0)\}$.
+\end{enumerate}
+\subsubsection{Purely Mixed Strategies}
+Using lemma from \textit{Rid of inequalities in mixed equilibria:
+general case} [1, pg-66]
+to compute the expected payoffs for Alice playing her pure strategies $A_1$ and $A_2$ against the mixed
+strategy $(b^*_1 , b^*_2)$ of Bob. \\
+
+\textbf{Hint:} Find only purely mixed equilibria $( (p, (1 - p)), (q, (1 - q ) ) )$, where $p, q \in (0, 1)$. \\
+\\
+Finding the payoff of the player $A$ playing their pure strategies $A_1$ and $A_2$ separately against a mixed strategy $(q, (1 - q ))$ of the player $B$:
+
+$$\pi^{mix}_A ( A2, (q, (1 - q) ) ) =  20q + (1 - q) * 2 = 18q + 2$$
+$$\pi^{mix}_A ( A1, (q, (1 - q) ) ) =  3q + (1 - q) * 2 = q + 2$$
+Equalizing the payoffs of both strategies $A_1$ and $A_2$ :
+$$
+\pi^{mix}_A ( A1, (q, (1 - q ) ) ) = \pi^{mix}_A ( A2, (q, (1 - q ) ) )$$ $$ q + 2 = 18q + 2$$  $$17q =0 \iff q = 0
+$$
+As per the hypothesis $q \in (0, 1) \iff q \neq 0$. Therefore, there is no purely mixed strategies.
+
+
+\subsubsection{Bob playing purely mixed strategy and Alice playing pure strategy}
+\begin{itemize}
+    \item \textbf{Alice plays the pure strategy $A_1$ (meaning that $A_2$ does not belong to the spectrum) and Bob is playing  purely mixed strategy.} $( (1, 0), (q, (1 - q ) ) )$, where $q \in (0, 1)$.
+
+$$\pi^{mix}_A ( A1, (q, (1 - q ) ) ) = 3q + (1 - q)*2 = q + 2$$
+$$\pi^{mix}_B ( (1, 0), B1 ) =  24$$ 
+$$\pi^{mix}_B ( (1, 0), B2 ) =  4$$
+$$\pi^{mix}_B ( (1, 0), B1 ) ) = 24 \neq \pi^{mix}_B ( (1, 0), B2 ) ) =  4$$
+This strategy is rejected because it is not a Nash equilibrium.
+
+    \item 
+\textbf{Alice plays the pure strategy $A_2$ (meaning that $A_1$ does not belong to the spectrum) and Bob is playing  purely mixed strategy.} $( (0, 1), (q, (1 - q ) ) )$, where $q \in (0, 1)$. 
+
+$$\pi^{mix}_A ( A2, (q, (1 - q ) ) ) = 20q + (1 - q)*2 = 18q + 2$$
+$$\pi^{mix}_B ( (0, 1), B1 ) ) =  19$$
+$$\pi^{mix}_B ( (0, 1), B2 ) ) =  61$$
+$$19 = \pi^{mix}_B ( (0, 1), B1 ) ) \neq \pi^{mix}_B ( (0, 1), B2 ) ) =  61$$
+This strategy is rejected because it is not a Nash equilibrium.
+\end{itemize}
+
+
+\subsubsection{Alice playing purely mixed strategy and Bob playing pure strategy}
+
+\begin{itemize}
+    \item \textbf{Bob plays the pure strategy $B_1$ (meaning that $B_2$ does not belong to the spectrum) and Alice is playing  purely mixed strategy.} $( (p, (1 - p) ), (1, 0 ) )$, where $p \in (0, 1)$.
+
+$$\pi^{mix}_B ( (p, (1 - p) ), B1 ) = 24p + 19(1 - p) = 5p + 19$$
+$$\pi^{mix}_A ( A1, (1, 0) ) =  3$$ 
+$$\pi^{mix}_A ( A2, (1, 0) ) =  20$$
+$$3 = \pi^{mix}_A( A1, (1, 0) ) \neq \pi^{mix}_A ( A2, (1, 0) ) =  20$$
+This strategy is rejected because it is not a Nash equilibrium.
+    
+    \item 
+\textbf{Bob plays the pure strategy $B_2$ (meaning that $B_1$ does not belong to the spectrum) and Alice is playing  purely mixed strategy.} $( (p, (1 - p) ), (0, 1 ) )$, where $p \in (0, 1)$.
+
+$$\pi^{mix}_B ( (p, (1 - p) ), B2 ) = 4p + 61(1 - p) = 61 - 57p$$
+$$\pi^{mix}_A ( A1, (0, 1) ) =  2$$ 
+$$\pi^{mix}_A ( A2, (0, 1) ) =  0$$
+$$2 = \pi^{mix}_A( A1, (1, 0) ) \neq \pi^{mix}_A ( A2, (1, 0) ) =  0$$
+
+This strategy is rejected because it is not a Nash equilibrium.
+\end{itemize}
+
+\subsection{Conclusion}
+The final set of Strategies to reach Nash Equilibria as follows after examining all the Possibilities and solving the game between Alice and Bob in Mixed Strategies:
+
+\textbf{Answer - }
+$$
+ \{( (0, 1 ), (0, 1 ) )\}
+$$
+\begin{thebibliography}{00}
+\bibitem{b1} Shilov, N. (2022). Week 3 [Course notes]. Introduction to Game Theory. Retrieved from
+\textit{Moodle}.
+\bibitem{b1} Shilov, N. (2022). Week 4 [Course notes]. Introduction to Game Theory. Retrieved from
+\textit{Moodle}.
+\end{thebibliography}
+\end{document}
+
+
